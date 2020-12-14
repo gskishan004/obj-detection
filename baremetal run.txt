@@ -1,0 +1,46 @@
+srun -t10:00:00 --gres=gpu:1 --mem 102400 --pty /bin/bash
+module load python3/intel/3.6.3 cuda/9.0.176 nccl/cuda9.0/2.4.2
+mkdir pytorch_env; cd pytorch_env
+virtualenv --system-site-packages py3.6.3
+source py3.6.3/bin/activate
+pip3 install http://download.pytorch.org/whl/cu92/torch-0.4.1-cp36-cp36mlinux_x86_64.whl
+pip3 install torchvision
+cd..
+pip3 install -r requirements.txt
+source pytorch_env/py3.6.3/bin/activate
+
+/usr/bin/time -v nvprof python train.py --img 416 --batch 4 --epochs 1 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs4_ep1_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 8 --epochs 1 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs8_ep1_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 16 --epochs 1 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs16_ep1_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 32 --epochs 1 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs32_ep1_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 4 --epochs 5 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs4_ep5_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 8 --epochs 5 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs8_ep5_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 16 --epochs 5 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs16_ep5_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 32 --epochs 5 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs32_ep5_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 4 --epochs 10 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs4_ep10_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 8 --epochs 10 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs8_ep10_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 16 --epochs 10 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs16_ep10_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 32 --epochs 10 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs32_ep10_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 4 --epochs 20 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs4_ep20_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 8 --epochs 20 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs8_ep20_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 16 --epochs 20 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs16_ep20_lr1.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 32 --epochs 20 --data bccd.yaml --weights yolov3.pt &> bare_metal_bs32_ep20_lr1.txt
+
+
+/usr/bin/time -v nvprof python train.py --img 416 --batch 4 --epochs 1 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs4_ep1_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 8 --epochs 1 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs8_ep1_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 16 --epochs 1 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs16_ep1_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 32 --epochs 1 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs32_ep1_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 4 --epochs 5 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs4_ep5_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 8 --epochs 5 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs8_ep5_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 16 --epochs 5 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs16_ep5_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 32 --epochs 5 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs32_ep5_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 4 --epochs 10 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs4_ep10_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 8 --epochs 10 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs8_ep10_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 16 --epochs 10 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs16_ep10_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 32 --epochs 10 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs32_ep10_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 4 --epochs 20 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs4_ep20_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 8 --epochs 20 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs8_ep20_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 16 --epochs 20 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs16_ep20_lr1_tiny.txt
+/usr/bin/time -v nvprof python train.py --img 416 --batch 32 --epochs 20 --data bccd.yaml --weights yolov3-tiny.pt &> bare_metal_bs32_ep20_lr1_tiny.txt
+
